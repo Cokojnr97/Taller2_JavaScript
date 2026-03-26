@@ -21,8 +21,7 @@ do {
 do {
     numero = prompt("Ingrese el número " + i + ". Escriba una letra para terminar.");
 
-    // Si ingresa letras, termina (incluye X/x)
-    if (/^[a-zA-Z]+$/.test(numero)) {
+        if (/^[a-zA-Z]+$/.test(numero)) {
         break;
     }
 

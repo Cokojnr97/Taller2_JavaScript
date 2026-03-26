@@ -6,18 +6,6 @@ let inventario = [
     
 ];
 
-/*Crea una función que: 
-
-Obtenga los productos con stock menor a 3 
-
-Muestre un mensaje distinto según el stock: 
-
-stock == 0 → “Producto agotado” 
-
-stock 1 o 2 → “Advertencia: pocas unidades” 
-
-Devuelva un arreglo con los nombres de los productos críticos. */
-
 const productosCriticos = function(array){
     let productosCriticosArray = [];
     for (let i=0; i<array.length; i++){
