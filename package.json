@@ -1,0 +1,15 @@
+{
+  "name": "taller_2",
+  "version": "1.0.0",
+  "description": "Taller 2 de javaScript",
+  "keywords": [
+    "taller"
+  ],
+  "license": "ISC",
+  "author": "Juan Andrés Velásquez Gómez",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}

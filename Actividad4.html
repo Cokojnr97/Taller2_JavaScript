@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en"> 
+<head>
+    <meta charset="UTF-8"> 
+    <title>arrays</title> 
+</head> 
+
+<body> 
+    <script> 
+    var amigos = ["Pedro","Maria","Joan","Pili"];    
+
+    // 1- queremos que escriba "mis amigos son maria y joan. rellena los huecos." 
+
+    document.write("Mis amigos son "+ "<b>" + amigos[1] + "</b>" + " y <b>" + amigos[2]+"</b>"); 
+
+    // 2- ¿dónde está el fallo? 
+
+    var enemigosMala = ["scipion" + "scorpio" + "black"];       
+    var enemigosBuena = ["Scipion", "Scorpio", "Black"];
+
+    // 3- escribe una instrucción que devuelva la longitud del array amigos sea cual sea el número de datos almacenados en su interior. 
+
+    var cantidadAmigos = amigos.length;
+    alert("La cantidad de amigos que tienes es: " + cantidadAmigos)
+
+    // 4- "aitana" es también tu amiga. Escribe una instrucción que la añada al principio de la lista amigos  
+
+    amigos.unshift("Aitana");
+
+    // 5 - "pedro" ha cambiado de nombre. ahora se llama "nacho". actualiza con una instrucción tu lista de amigos 
+
+    amigos.splice(0, 1, "Nacho")
+
+    // 6 - "tor" es ahora tu enemigo. añádelo con una instruccion al final de tu lista de enemigos. 
+    
+    enemigosBuena.push("Thor");
+
+    alert("Tus amigos son: " + amigos.join(", ") + " y tus enemigos son: " + enemigosBuena.join(", "));
+
+    </script> 
+</body> 
+</html> 
