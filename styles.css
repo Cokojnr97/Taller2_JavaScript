@@ -295,6 +295,23 @@ textarea {
     font-weight: 600;
 }
 
+.window-footer {
+    border-top: 1px solid #bfc7cd;
+    background: linear-gradient(180deg, #e3e8eb 0%, #d5dce1 100%);
+    padding: 0.75rem 1rem 0.9rem;
+    font-size: 0.82rem;
+    color: #32383d;
+}
+
+.window-footer p {
+    margin: 0.2rem 0;
+    line-height: 1.35;
+}
+
+.footer-disclaimer {
+    color: #1f446f;
+}
+
 @media (max-width: 900px) {
     .window-body {
         grid-template-columns: 1fr;

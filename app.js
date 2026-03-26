@@ -238,57 +238,162 @@ const renderActivity = (activityId) => {
         return;
     }
 
-    activityContent.innerHTML = `
-        <h2 class="activity-title">Actividad 6</h2>
-        <p class="activity-subtitle">Resumen de ventas, dias altos y dias bajos.</p>
-        <form id="formA6" class="form-grid">
-            <div class="action-row">
-                <button type="submit" class="mac-button">Calcular estadisticas</button>
-            </div>
-        </form>
-        <div class="result-box"><h3>Resultado</h3><p>Ejecuta para mostrar el analisis de ventas.</p></div>
-    `;
+    if (activityId === 6) {
+        activityContent.innerHTML = `
+            <h2 class="activity-title">Actividad 6</h2>
+            <p class="activity-subtitle">Resumen de ventas, dias altos y dias bajos.</p>
+            <form id="formA6" class="form-grid">
+                <div class="action-row">
+                    <button type="submit" class="mac-button">Calcular estadisticas</button>
+                </div>
+            </form>
+            <div class="result-box"><h3>Resultado</h3><p>Ejecuta para mostrar el analisis de ventas.</p></div>
+        `;
 
-    document.getElementById("formA6").addEventListener("submit", (event) => {
-        event.preventDefault();
+        document.getElementById("formA6").addEventListener("submit", (event) => {
+            event.preventDefault();
 
-        const sales = [
-            { day: "Marzo 23", amount: 45000 },
-            { day: "Marzo 24", amount: 60000 },
-            { day: "Marzo 25", amount: 30000 },
-            { day: "Marzo 26", amount: 8000 },
-            { day: "Marzo 27", amount: 120000 },
-            { day: "Marzo 28", amount: 20000 },
-            { day: "Marzo 29", amount: 7000 },
-            { day: "Marzo 30", amount: 90000 },
-            { day: "Marzo 31", amount: 40000 },
-            { day: "Abril 1", amount: 15000 },
-            { day: "Abril 2", amount: 5000 },
-            { day: "Abril 3", amount: 110000 }
-        ];
+            const sales = [
+                { day: "Marzo 23", amount: 45000 },
+                { day: "Marzo 24", amount: 60000 },
+                { day: "Marzo 25", amount: 30000 },
+                { day: "Marzo 26", amount: 8000 },
+                { day: "Marzo 27", amount: 120000 },
+                { day: "Marzo 28", amount: 20000 },
+                { day: "Marzo 29", amount: 7000 },
+                { day: "Marzo 30", amount: 90000 },
+                { day: "Marzo 31", amount: 40000 },
+                { day: "Abril 1", amount: 15000 },
+                { day: "Abril 2", amount: 5000 },
+                { day: "Abril 3", amount: 110000 }
+            ];
 
-        let highDays = 0;
-        let lowDays = 0;
-        let total = 0;
+            let highDays = 0;
+            let lowDays = 0;
+            let total = 0;
 
-        sales.forEach((sale) => {
-            total += sale.amount;
-            if (sale.amount > 50000) highDays += 1;
-            if (sale.amount < 10000) lowDays += 1;
+            sales.forEach((sale) => {
+                total += sale.amount;
+                if (sale.amount > 50000) highDays += 1;
+                if (sale.amount < 10000) lowDays += 1;
+            });
+
+            let earningsType = "ganancias altas";
+            if (total < 100000) earningsType = "perdidas";
+            else if (total < 200000) earningsType = "ganancias moderadas";
+
+            renderResult(`
+                <h3>Resultado</h3>
+                <p><strong>Dias con ventas sobre 50.000:</strong> ${highDays}</p>
+                <p><strong>Dias con ventas bajo 10.000:</strong> ${lowDays}</p>
+                <p><strong>Total acumulado:</strong> ${total}</p>
+                <p><strong>Estado general:</strong> ${earningsType}</p>
+            `);
         });
+        return;
+    }
 
-        let earningsType = "ganancias altas";
-        if (total < 100000) earningsType = "perdidas";
-        else if (total < 200000) earningsType = "ganancias moderadas";
+    if (activityId === 7) {
+        activityContent.innerHTML = `
+            <h2 class="activity-title">Actividad 7</h2>
+            <p class="activity-subtitle">Registrar productos, filtrar por precio y buscar por nombre.</p>
+            <form id="formA7" class="form-grid">
+                <label>
+                    Cantidad esperada de productos
+                    <input id="a7Count" type="number" min="1" value="3" required>
+                </label>
+                <label>
+                    Productos (uno por linea con formato: nombre,precio)
+                    <textarea id="a7Products" placeholder="Laptop, 2500000\nMouse, 70000\nTeclado, 120000"></textarea>
+                </label>
+                <label>
+                    Precio minimo para filtrar
+                    <input id="a7Threshold" type="number" min="0" value="100000" required>
+                </label>
+                <label>
+                    Producto a buscar por nombre
+                    <input id="a7Search" type="text" placeholder="Mouse" required>
+                </label>
+                <div class="action-row">
+                    <button type="submit" class="mac-button">Procesar actividad</button>
+                </div>
+            </form>
+            <div class="result-box"><h3>Resultado</h3><p>Ingresa los datos para ejecutar la actividad.</p></div>
+        `;
 
-        renderResult(`
-            <h3>Resultado</h3>
-            <p><strong>Dias con ventas sobre 50.000:</strong> ${highDays}</p>
-            <p><strong>Dias con ventas bajo 10.000:</strong> ${lowDays}</p>
-            <p><strong>Total acumulado:</strong> ${total}</p>
-            <p><strong>Estado general:</strong> ${earningsType}</p>
-        `);
-    });
+        document.getElementById("formA7").addEventListener("submit", (event) => {
+            event.preventDefault();
+
+            const expectedCount = Number(document.getElementById("a7Count").value);
+            const threshold = Number(document.getElementById("a7Threshold").value);
+            const searchName = document.getElementById("a7Search").value.trim().toLowerCase();
+            const lines = document
+                .getElementById("a7Products")
+                .value
+                .split("\n")
+                .map((line) => line.trim())
+                .filter(Boolean);
+
+            if (!Number.isInteger(expectedCount) || expectedCount <= 0) {
+                renderResult('<h3>Resultado</h3><p class="error">La cantidad esperada debe ser un entero mayor que 0.</p>');
+                return;
+            }
+
+            const products = [];
+            for (let i = 0; i < lines.length; i += 1) {
+                const parts = lines[i].split(",");
+                if (parts.length < 2) continue;
+
+                const name = parts[0].trim();
+                const price = Number(parts.slice(1).join(",").trim());
+                if (!name || Number.isNaN(price)) continue;
+
+                products.push({ name, price });
+            }
+
+            if (products.length === 0) {
+                renderResult('<h3>Resultado</h3><p class="error">Debes ingresar al menos un producto valido con formato nombre,precio.</p>');
+                return;
+            }
+
+            const higherThanThreshold = products.filter((product) => product.price > threshold);
+            const foundProduct = products.find((product) => product.name.toLowerCase() === searchName);
+
+            const expectedMessage = products.length === expectedCount
+                ? `Coincide la cantidad esperada (${expectedCount}) con la cantidad procesada.`
+                : `Se esperaban ${expectedCount} productos, pero se procesaron ${products.length}.`;
+
+            const allProductsList = `<ul>${products
+                .map((product) => `<li><strong>${product.name}</strong>: COP$ ${product.price.toLocaleString("es-CO")}</li>`)
+                .join("")}</ul>`;
+
+            const higherList = higherThanThreshold.length
+                ? `<ul>${higherThanThreshold
+                    .map((product) => `<li><strong>${product.name}</strong>: COP$ ${product.price.toLocaleString("es-CO")}</li>`)
+                    .join("")}</ul>`
+                : `<p>No hay productos con precio mayor a COP$ ${threshold.toLocaleString("es-CO")}.</p>`;
+
+            const foundMessage = foundProduct
+                ? `<p><strong>Producto encontrado:</strong> ${foundProduct.name} (COP$ ${foundProduct.price.toLocaleString("es-CO")})</p>`
+                : "<p><strong>Producto buscado:</strong> No encontrado.</p>";
+
+            renderResult(`
+                <h3>Resultado</h3>
+                <p>${expectedMessage}</p>
+                <p><strong>Todos los productos:</strong></p>
+                ${allProductsList}
+                <p><strong>Productos mayores a COP$ ${threshold.toLocaleString("es-CO")}:</strong></p>
+                ${higherList}
+                ${foundMessage}
+            `);
+        });
+        return;
+    }
+
+    activityContent.innerHTML = `
+        <h2 class="activity-title">Actividad no disponible</h2>
+        <p class="activity-subtitle">Selecciona una actividad valida del menu.</p>
+    `;
 };
 
 navButtons.forEach((button) => {
